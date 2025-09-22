@@ -388,6 +388,124 @@ section {
     font-size: 0.95rem;
 }
 
+/* Clients Slider Section */
+.clients-slider {
+    background: #f8f9fa;
+    padding: 80px 0;
+}
+
+.clients-slider-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+    min-height: 300px;
+}
+
+.clients-slide {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.clients-slide.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+}
+
+.clients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.client-card {
+    background: white;
+    padding: 2rem 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.client-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    border-color: #ff6b35;
+}
+
+.client-logo {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.client-card h3 {
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.client-card p {
+    color: #666;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.clients-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.clients-prev, .clients-next {
+    background: #ff6b35;
+    border: none;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.clients-prev:hover, .clients-next:hover {
+    background: #e55a2e;
+    transform: scale(1.1);
+}
+
+.clients-indicators {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.clients-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.clients-indicator.active {
+    background: #ff6b35;
+}
+
 /* Services Section */
 .services-grid {
     display: grid;
@@ -763,6 +881,29 @@ section {
     }
     
     .video-overlay h3 {
+        font-size: 1.2rem;
+    }
+    
+    .clients-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+    
+    .client-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .client-logo {
+        font-size: 2rem;
+    }
+    
+    .clients-controls {
+        gap: 1rem;
+    }
+    
+    .clients-prev, .clients-next {
+        width: 40px;
+        height: 40px;
         font-size: 1.2rem;
     }
 }
