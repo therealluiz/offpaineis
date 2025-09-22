@@ -259,14 +259,7 @@ window.addEventListener('load', function() {
     document.body.classList.add('loaded');
 });
 
-// Parallax effect for hero section (optional, lightweight)
-window.addEventListener('scroll', function() {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector('.hero');
-    if (hero && scrolled < hero.offsetHeight) {
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-    }
-});
+
 
 // Utility function to check if element is in viewport
 function isInViewport(element) {
