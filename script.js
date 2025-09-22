@@ -315,3 +315,53 @@ document.addEventListener('DOMContentLoaded', function() {
         statsObserver.observe(statsSection);
     }
 });
+
+// Clients Slider Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const clientsSlides = document.querySelectorAll('.clients-slide');
+    const clientsIndicators = document.querySelectorAll('.clients-indicator');
+    const clientsPrevBtn = document.querySelector('.clients-prev');
+    const clientsNextBtn = document.querySelector('.clients-next');
+    let currentClientsSlide = 0;
+
+    function showClientsSlide(index) {
+        // Hide all slides
+        clientsSlides.forEach(slide => slide.classList.remove('active'));
+        clientsIndicators.forEach(indicator => indicator.classList.remove('active'));
+        
+        // Show current slide
+        if (clientsSlides[index]) {
+            clientsSlides[index].classList.add('active');
+            clientsIndicators[index].classList.add('active');
+        }
+    }
+
+    function nextClientsSlide() {
+        currentClientsSlide = (currentClientsSlide + 1) % clientsSlides.length;
+        showClientsSlide(currentClientsSlide);
+    }
+
+    function prevClientsSlide() {
+        currentClientsSlide = (currentClientsSlide - 1 + clientsSlides.length) % clientsSlides.length;
+        showClientsSlide(currentClientsSlide);
+    }
+
+    // Event listeners
+    if (clientsNextBtn) clientsNextBtn.addEventListener('click', nextClientsSlide);
+    if (clientsPrevBtn) clientsPrevBtn.addEventListener('click', prevClientsSlide);
+
+    clientsIndicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            currentClientsSlide = index;
+            showClientsSlide(currentClientsSlide);
+        });
+    });
+
+    // Auto-advance slider every 5 seconds
+    setInterval(nextClientsSlide, 5000);
+
+    // Initialize first slide
+    if (clientsSlides.length > 0) {
+        showClientsSlide(0);
+    }
+});
