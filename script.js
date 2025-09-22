@@ -52,8 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Auto-advance slides every 5 seconds
-    setInterval(nextSlide, 5000);
+    // Auto-advance removed to keep slider static and prevent interference with content below
 
     // Initialize first slide
     showSlide(0);
