@@ -1,3 +1,112 @@
+// Video Slider Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.video-slide');
+    const indicators = document.querySelectorAll('.indicator');
+    const prevBtn = document.querySelector('.video-prev');
+    const nextBtn = document.querySelector('.video-next');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+        // Hide all slides
+        slides.forEach(slide => slide.classList.remove('active'));
+        indicators.forEach(indicator => indicator.classList.remove('active'));
+        
+        // Pause all videos
+        slides.forEach(slide => {
+            const video = slide.querySelector('video');
+            if (video) video.pause();
+        });
+
+        // Show current slide
+        if (slides[index]) {
+            slides[index].classList.add('active');
+            indicators[index].classList.add('active');
+            
+            // Play current video
+            const currentVideo = slides[index].querySelector('video');
+            if (currentVideo) {
+                currentVideo.currentTime = 0;
+                currentVideo.play().catch(e => console.log('Video autoplay prevented'));
+            }
+        }
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    // Event listeners
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            currentSlide = index;
+            showSlide(currentSlide);
+        });
+    });
+
+    // Auto-advance slides every 5 seconds
+    setInterval(nextSlide, 5000);
+
+    // Initialize first slide
+    showSlide(0);
+});
+
+// Customer Counter Animation
+document.addEventListener('DOMContentLoaded', function() {
+    const counters = document.querySelectorAll('.counter-number');
+    let countersAnimated = false;
+
+    function animateCounter(element, start, end, duration) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const currentValue = Math.floor(progress * (end - start) + start);
+            
+            // Format large numbers
+            if (currentValue >= 1000000) {
+                element.textContent = (currentValue / 1000000).toFixed(1) + 'M+';
+            } else if (currentValue >= 1000) {
+                element.textContent = (currentValue / 1000).toFixed(0) + 'K+';
+            } else {
+                element.textContent = currentValue + '+';
+            }
+            
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    const counterObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !countersAnimated) {
+                countersAnimated = true;
+                counters.forEach((counter, index) => {
+                    const target = parseInt(counter.dataset.target);
+                    setTimeout(() => {
+                        animateCounter(counter, 0, target, 2000);
+                    }, index * 200);
+                });
+            }
+        });
+    }, { threshold: 0.5 });
+
+    const counterSection = document.querySelector('.customer-counter');
+    if (counterSection) {
+        counterObserver.observe(counterSection);
+    }
+});
+
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.getElementById('nav-toggle');
